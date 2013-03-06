@@ -32,6 +32,8 @@
 %% Would be nice to have it configurable. 
 -define(MAX_PAYLOAD_SIZE, 60000).
 
+%% Controls how many fragments for the pubsub_item tabe is created at startup.
+-define(PUBSUB_ITEM_FRAGMENT, 16).
 %% -------------------------------
 %% Pubsub types
 

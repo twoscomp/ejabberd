@@ -100,12 +100,14 @@ init(_Host, _ServerHost, _Options) ->
 			 {attributes, record_info(fields, pubsub_state)}]),
     mnesia:create_table(pubsub_item,
 			[{disc_only_copies, [node()]},
-			 {attributes, record_info(fields, pubsub_item)}]),
+			 {attributes, record_info(fields, pubsub_item)},
+			 {frag_properties, [{node_pool, [node()]}, {n_fragments, ?PUBSUB_ITEM_FRAGMENT}, {n_disc_copies, 1}]}]),
     ItemsFields = record_info(fields, pubsub_item),
     case mnesia:table_info(pubsub_item, attributes) of
 	ItemsFields -> ok;
 	_ ->
-	    mnesia:transform_table(pubsub_item, ignore, ItemsFields)
+	    TransformFun = fun() -> mnesia:transform_table(pubsub_item, ignore, ItemsFields) end,
+	    mnesia:activity(sync_dirty, TransformFun, [], mnesia_frag) 
     end,
     ok.
 
@@ -911,7 +913,8 @@ del_state(NodeIdx, JID) ->
 %% ```get_items(NodeIdx, From) ->
 %%	   node_default:get_items(NodeIdx, From).'''</p>
 get_items(NodeIdx, _From) ->
-    Items = mnesia:match_object(#pubsub_item{itemid = {'_', NodeIdx}, _ = '_'}),
+    MatchObject = fun() -> mnesia:match_object(#pubsub_item{itemid = {'_', NodeIdx}, _ = '_'}) end,
+    Items = mnesia:activity(sync_dirty, MatchObject, [], mnesia_frag), 
     {result, lists:reverse(lists:keysort(#pubsub_item.modification, Items))}.
 
 get_items(NodeIdx, JID, AccessModel, PresenceSubscription, RosterGroup, _SubId) ->
@@ -957,7 +960,9 @@ get_items(NodeIdx, JID, AccessModel, PresenceSubscription, RosterGroup, _SubId) 
 %%	 Item    = mod_pubsub:pubsubItem()
 %% @doc <p>Returns an item (one item list), given its reference.</p>
 get_item(NodeIdx, ItemId) ->
-    case mnesia:read({pubsub_item, {ItemId, NodeIdx}}) of
+    ReadFun = mnesia:read({pubsub_item, {ItemId, NodeIdx}}),
+    Result = mnesia:activity(sync_dirty, ReadFun, [], mnesia_frag),
+    case Result of
 	[Item] when is_record(Item, pubsub_item) ->
 	    {result, Item};
 	_ ->
@@ -1016,7 +1021,8 @@ get_item(NodeIdx, ItemId, JID, AccessModel, PresenceSubscription, RosterGroup, _
 %%	 Reason = mod_pubsub:stanzaError()
 %% @doc <p>Write an item into database.</p>
 set_item(Item) when is_record(Item, pubsub_item) ->
-    mnesia:write(Item);
+    WriteFun = fun() -> mnesia:write(Item) end, 
+    mnesia:activity(sync_dirty, WriteFun, [], mnesia_frag);
 set_item(_) ->
     {error, ?ERR_INTERNAL_SERVER_ERROR}.
 
@@ -1026,7 +1032,8 @@ set_item(_) ->
 %%	 Reason  = mod_pubsub:stanzaError()
 %% @doc <p>Delete an item from database.</p>
 del_item(NodeIdx, ItemId) ->
-    mnesia:delete({pubsub_item, {ItemId, NodeIdx}}).
+    DeleteFun = fun() -> mnesia:delete({pubsub_item, {ItemId, NodeIdx}}) end,
+    mnesia:activity(sync_dirty, DeleteFun, [], mnesia_frag).
 
 del_items(NodeIdx, ItemIds) ->
     lists:foreach(fun(ItemId) ->
