@@ -1,0 +1,27 @@
+Package: ejabberd
+Version: 2.1.12-1
+Maintainer: Daniel Lin <linonmail@gmail.com>
+Section: universe/net
+Priority: optional
+Homepage: https://github.com/twoscomp/ejabberd
+Depends: adduser, erlang-asn1 (>= 1:14.b.4-dfsg), erlang-base (>= 1:14.b.4-dfsg) | erlang-base-hipe (>= 1:14.b.4-dfsg), erlang-crypto (>= 1:14.b.4-dfsg), erlang-inets (>= 1:14.b.4-dfsg), erlang-mnesia (>= 1:14.b.4-dfsg), erlang-odbc (>= 1:14.b.4-dfsg), erlang-public-key (>= 1:14.b.4-dfsg), erlang-ssl (>= 1:14.b.4-dfsg), erlang-syntax-tools (>= 1:14.b.4-dfsg), erlang-abi-13.a, openssl, ucf, debconf (>= 0.5) | debconf-2.0, libc6 (>= 2.14), libexpat1 (>= 1.95.8), libpam0g (>= 0.99.7.1), libssl1.0.0 (>= 1.0.0), zlib1g (>= 1:1.1.4)
+Suggests: libunix-syslog-perl, imagemagick | graphicsmagick-imagemagick-compat
+Architecture: amd64
+Description: distributed, fault-tolerant Jabber/XMPP server written in Erlang
+ ejabberd is a distributed, fault-tolerant Jabber/XMPP server written in Erlang.
+ Its features contain:
+  - XMPP-compliant
+  - Web based administration
+  - Load balancing: can run in a cluster of machines
+  - Fault-tolerance: database can be replicated and stored on multiple
+    nodes (nodes can be added or replaced 'on the fly')
+  - Virtual hosting: several virtual domains can be served using single ejabberd
+    instance
+  - SSL/TLS support
+  - Multi-User Chat (MUC/conference)
+  - IRC transport
+  - Jabber Users Directory, based on users vCards
+  - Service Discovery
+  - Shared roster
+ Modifications:
+  - Fragmented pubsub_item table.

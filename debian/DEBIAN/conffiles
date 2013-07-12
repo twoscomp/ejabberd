@@ -1,0 +1,4 @@
+/etc/init.d/ejabberd
+/etc/logrotate.d/ejabberd
+/etc/default/ejabberd
+/etc/ejabberd/inetrc

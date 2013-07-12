@@ -1,0 +1,226 @@
+Template: ejabberd/hostname
+Type: string
+Default: localhost
+Description: The name of the host ejabberd will serve:
+ Please enter the hostname of your Jabber server (in lowercase).
+Description-cs.UTF-8: Jméno počítače, na kterém bude ejabberd sloužit:
+ Zadejte prosím jméno počítače vašeho jabberového serveru (malými písmeny).
+Description-da.UTF-8: Navnet på værten som ejabberd vil betjene:
+ Indtast venligst værtsnavnet på din Jabberserver (med små bogstaver).
+Description-de.UTF-8: Der Name Ihres Ejabberd-Servers:
+ Geben Sie bitte (in Kleinbuchstaben) den Namen Ihres Jabberservers an.
+Description-es.UTF-8: Nombre del servidor Jabber que ejabberd servirá:
+ Por favor indica el nombre de tu servidor Jabber.
+Description-eu.UTF-8: Ejabberd-ek zerbitzatuko duen ostalariaren izena:
+ Jabber zerbitzariaren ostalari izena sartu (letra xehez).
+Description-fi.UTF-8: Palvelin, jolla ejabberdia ajetaan:
+ Anna Jabber-palvelimen verkkonimi (pienellä kirjoitettuna).
+Description-fr.UTF-8: Nom d'hôte du serveur ejabberd :
+ Veuillez indiquer le nom d'hôte (en minuscule) du serveur Jabber.
+Description-gl.UTF-8: O nome do servidor de ejabberd:
+ Introduza o nome do servidor Jabber (en minúsculas).
+Description-ja.UTF-8: ejabberd が動作するホスト名:
+ Jabber サーバのホスト名を入力してください (小文字)。
+Description-nl.UTF-8: Naam van de computer die ejabberd moet aanbieden:
+ Wat is de computernaam van uw Jabber-server (in kleine letters)?
+Description-pt.UTF-8: O nome da máquina que o ejabberd irá servir:
+ Por favor insira o nome da máquina do seu servidor de Jabber (em minúsculas).
+Description-pt_BR.UTF-8: O nome da máquina na qual o ejabberd será servidor:
+ Por favor, informe o nome da máquina do seu servidor Jabber (em letras minúsculas).
+Description-ru.UTF-8: Имя хоста, которое будет обслуживать ejabberd:
+ Введите имя вашего Jabber-сервера (строчными буквами).
+Description-sv.UTF-8: Värdnamnet som ejabberd ska arbeta för:
+ Ange värdnamnet på din jabber-server (endast gemener).
+Description-tr.UTF-8: ejabberd hizmeti verecek olan makinenin adı:
+ Lütfen Jabber sunucunuzun makine adını girin (küçük harflerle).
+Description-vi.UTF-8: Tên máy của máy phục vụ Jabber:
+ Hãy nhập (bằng chữ thường) tên của máy sẽ được ejabberd phục vụ.
+
+Template: ejabberd/user
+Type: string
+Description: The username of an admin account for ejabberd:
+ Please provide the name of an account to administrate the ejabberd server.
+ After the installation of ejabberd you can use this account to log in with any
+ Jabber client to do administrative tasks or go to
+ http://${hostname}:5280/admin/ and log in with this account to enter the admin
+ interface. Enter the username part here (e.g. ${user}), but use the full Jabber
+ ID (e.g. ${user}@${hostname}) to log into ejabberd web interface; otherwise it
+ will fail.
+ .
+ Leave empty if you don't want to create an admin account automatically.
+Description-cs.UTF-8: Jméno administrátorského účtu pro ejabberd:
+ Zadejte prosím jméno účtu, který bude spravovat ejabberd server. Po instalaci serveru ejabberd se můžete pomocí tohoto účtu přihlásit z libovolného jabberového klienta a vzdáleně tak provádět správcovské úkony. Jinou možností je webové rozhraní na http://${hostname}:5280/admin/, kde se s tímto účtem (např. „${user}@${hostname}“) taktéž můžete přihlásit do správcovského rozhraní. (Zde zadejte pouze uživatelskou část (např. ${user}), ale pro přihlášení do webového rozhraní používejte kompletní ID včetně jména serveru.)
+ .
+ Jestliže nechcete automaticky vytvořit správcovský účet, ponechte prázdné.
+Description-da.UTF-8: Brugernavnet på en adminkonto for ejabberd:
+ Angiv venligst navnet på en konto til administration af ejabberdserveren. Efter installationen af ejabberd kan du bruge denne konto til at logge ind med enhver Jabberklient og udføre administrative opgaver eller gå til http://${hostname}:5280/admin/ og logge ind med denne konto for at tilgå administrationsgrænsefladen. Indtast brugernavnsdelen her (f.eks. ${user}), men brug den fulde Jabber-id (f.eks. ${user}@${hostname}) for at logge ind på ejabberds internetgrænseflade; ellers vil den fejle.
+ .
+ Efterlad blank hvis du ikke automatisk ønsker at oprette en administrationskonto.
+Description-de.UTF-8: Der Benutzername eines administrativen Kontos für Ejabberd:
+ Geben Sie bitte den Namen für ein Konto an, dass den Ejabberd-Server verwalten kann. Nach der Installation können Sie mit Hilfe dieses Kontos und eines beliebigen Jabber-Clients Verwaltungsaufgaben durchführen oder sich unter http://{hostname}:5280/admin/ an der Administratorschnittstelle anmelden. Geben Sie hier den Benutzernamen-Anteil ein (z.B. ${user}), verwenden Sie aber die komplette Jabber-ID (z.B. ${user}@${hostname}) um sich an der Ejabberd-Webschnittstelle anzumelden, da ansonsten die Anmeldung nicht funktionieren wird.
+ .
+ Lassen Sie das Feld leer, um kein privilegiertes Konto anzulegen.
+Description-es.UTF-8: Cuenta de administrador en ejabberd:
+ Por favor indica el nombre deseado para una cuenta de administrador en el servidor ejabberd. Después de la instalación de ejabberd podrás usar esta cuenta con un cliente Jabber y hacer tareas de administración, o entrar en la web de administración http://${hostname}:5280/admin/ Al poner los datos de administrador en esa web, recuerda introducir tu Jabber ID completo, por ejemplo '${user}@${hostname}'
+ .
+ Dejar vacío si no deseas que se cree automáticamente una cuenta de administrador.
+Description-eu.UTF-8: Ejabberd-en administrazio konturako erabiltzaile-izena:
+ Kontu-izen bat eman, haren bidez ejabberd zerbitzaria administratzeko. Ejabberd instalatu ostean, kontu hau erabil dezakezu edozein Jabber bezerotan edo http://${ostalari-izena}:5280/admin/ helbideko administrazio-interfazean saioa hasi eta administrazio lanak egiteko. Hemen erabiltzaile-izena soilik sartu (adib. ${erabiltzailea}), baina Jabber ID osoa erabili (e.g. ${erabiltzailea}@${ostalari-izena}) ejabberd-en web interfazean sartzeko, bestela huts egingo du.
+ .
+ Bete gabe utzi administrazio kontua automatikoki sortzea nahi ez baduzu.
+Description-fi.UTF-8: ejabberdin ylläpitotunnus:
+ Anna tunnus, jota käytetään ejabberd-palvelimen ylläpitoon. Asennuksen jälkeen tällä tunnuksella voidaan tehdä ylläpitoon liittyviä tehtäviä käyttäen mitä tahansa Jabber-asiakasta. Sen avulla voidaan myös kirjautua osoitteessa http://${hostname}:5280/admin/ olevaan ylläpitokäyttöliittymään. Anna tässä vain käyttäjätunnus (esim. ${user}), mutta käytä ejabberdin verkkokäyttöliittymässä Jabber ID:tä kokonaisuudessaan (esim. ${user}@${hostname}). 
+ .
+ Jätä kenttä tyhjäksi, jos ylläpitotunnusta ei haluta luoda automaattisesti.
+Description-fr.UTF-8: Identifiant du compte administrateur d'ejabberd :
+ Veuillez indiquer un identifiant afin d'administrer le serveur ejabberd. Après l'installation, vous pourrez utilisez cette identité pour vous connecter avec tout client Jabber ou l'interface d'administration sur http://${hostname}:5280/admin/ pour réaliser des tâches administratives. Veuillez seulement entrer ici l'identifiant (par exemple, « ${user} »), cependant vous devrez utiliser une identité Jabber complète (par exemple, « ${user}@${hostname} ») pour vous connecter à l'interface web.
+ .
+ Veuillez laisser cette entrée vide si vous ne souhaitez pas créer de compte administrateur automatiquement.
+Description-gl.UTF-8: O usuario dunha conta administrativa para ejabberd:
+ Introduza o nome dunha conta para administrar o servidor ejabberd. Trala instalación de ejabberd pode empregar esta conta para se conectar con calquera cliente Jabber para realizar tarefas administrativas ou pode conectarse a http://${hostname}:5280/admin/ e identifíquese con esta conta para entrar na interface de administración. Introduza aquí a parte do nome de usuario (por exemplo, ${user}), pero empregue o ID de Jabber completo (por exemplo, ${user}@${hostname}) para se identificar na interface web de ejabberd; se non o fai así, a identificación ha fallar.
+ .
+ Déixeo en branco se non quere crear unha conta de administrador automaticamente.
+Description-ja.UTF-8: ejabberd 管理者アカウントのユーザ名:
+ ejabberd サーバを管理するアカウントの名前を入力してください。ejabberd のインストール後は、どの Jabber クライアントからでも、このアカウントを使って管理作業を実施することができますし、http://${hostname}:5280/admin/ からこのアカウントでログインして管理画面に入れます。ここでユーザ名の部分 (例: ${user}) を入力するわけですが、ejabberd のウェブインターフェイスでは、ログインするのに完全な Jabber ID (例: ${user}@${hostname}) を使ってください。それ以外はログインに失敗します。
+ .
+ 自動的に管理者アカウントを作りたくない場合は空のままにしておいてください。
+Description-nl.UTF-8: Naam van een beheerdersaccount voor ejabberd:
+ Geef de naam op van een account om ejabberd te beheren. Na de installatie van ejabberd kunt u met deze account in elke Jabber-client of op http://${hostname}:5280/admin/ beheerderstaken uitvoeren. Geeft hier alleen het gebruiksnaam-deel op (bv. ${user}), maar gebruik het volledige Jabber-ID (bv. ${user}@${hostname) om in te loggen op de webinterface van ejabberd, anders zal dit mislukken.
+ .
+ Voer niets in als u niet automatisch een beheerdersaccount wilt aanmaken.
+Description-pt.UTF-8: O nome de uma conta de admin para o ejabberd:
+ Por favor forneça o nome de uma conta para administrar o servidor ejabberd. Depois da instalação do ejabberd pode usar esta conta para se ligar a qualquer cliente Jabber para efectuar tarefas administrativas ou ir a http://${hostname}:5280/admin/ e ligar com esta conta para entrar na interface de admin. Certifique-se que insere o Jabber ID completo (p.e. '${user}@${hostname}') para se ligar; caso contrário irá falhar.
+ .
+ Deixe em branco caso não queira criar uma conta admin automaticamente.
+Description-pt_BR.UTF-8: O nome de usuário de uma conta administrativa para o ejabberd:
+ Por favor, forneça o nome de uma conta para administrar o servidor ejabberd. Depois da instalação do ejabberd você pode usar esta conta para logar em qualquer cliente Jabber para realizar tarefas administrativas ou acesse http://${hostname}:5280/admin/ e efetue o login com esta conta para entrar na interface administrativa. Informe aqui a parte do nome de usuário (e.g. ${user}), mas use um ID Jabber completo (e.g. ${user}@${hostname}) para efetuar login na interface web do ejabberd; caso contrário não funcionará.
+ .
+ Deixe vazio se você não quer criar automaticamente uma conta administrativa.
+Description-ru.UTF-8: Имя учётной записи администратора ejabberd:
+ Пожалуйста, введите имя учётной записи администратора сервера ejabberd. После установки ejabberd вы сможете подключаться к нему с помощью Jabber-клиента, используя эту учетную запись, и администрировать сервер. Также вы сможете использовать интерфейс администратора по адресу http://${hostname}:5280/admin/. Сейчас введите только имя (например, ${user}), а для последующего подключения используйте полный Jabber ID (например, '${user}@${hostname}'), иначе подключиться к интерфейсу администратора не удастся.
+ .
+ Оставьте поле пустым, если не хотите создавать учётную запись администратора автоматически.
+Description-sv.UTF-8: Användarnamnet för administratörskontot för ejabberd:
+ Ange användarnamnet för ett administratörskonto för ejabberd-servern. Efter att installationen är klar kan du använda detta kontot för att logga in med en Jabber-klient för att utföra administrativa uppgifter, alternativt så kan du besöka http://${hostname}:5280/admin/ och logga in med kontot där för att komma åt administrationsgränssnittet. Ange användanamnet här (t.ex. ${user}), men kom ihåg att använda det fullständiga Jabber ID:t (t.ex. ${user}@${hostname}) för att logga in i ejabberd:s webbgränssnitt.
+ .
+ Lämna fältet tomt om du inte vill skapa ett administrationskonto automatiskt.
+Description-tr.UTF-8: ejabberd yönetici hesabının kullanıcı adı:
+ Lütfen ejabberd sunucusunu yönetecek olan hesabın adını girin. Kurulum bittikten sonra yönetimsel görevleri yerine getirmek için herhangi bir Jabber istemcisini kullanarak bu hesapla oturum açabilir ya da http://${hostname}:5280/admin/ adresine gidip bu hesapla oturum açarak yönetim arayüzüne girebilirsiniz. Buraya kullanıcı adı kısmını girin (ör. ${user}), ama ejabberd web arayüzüne erişmek için tam Jabber kimliğini (ör. ${user}@${hostname}) kullanın, aksi takdirde oturum açamazsınız.
+ .
+ Yönetici hesabını otomatik olarak oluşturmak istemiyorsanız bu alanı boş bırakın.
+Description-vi.UTF-8: Tên đăng nhập của tài khoản quản trị cho ejabberd:
+ Hãy cung cấp tên của một tài khoản sẽ quản trị máy phục vụ ejabberd. Sau khi cài đặt trình nền ejabberd, bạn có thể sử dụng tài khoản này để đăng nhập với bất cứ ứng dụng khách Jabber nào, để làm các công việc quản trị, hoặc thăm địa chỉ « http://${hostname}:5280/admin/ » và đăng nhập với tài khoản này để vào giao diện quản trị. Ở đây thì nhập chỉ phần tên người dùng (v.d. « ${user} »), nhưng hãy sử dụng Jabber ID hoàn toàn (v.d. « ${user}@${hostname} ») để đăng nhập vào giao diện Web của ejabberd; không thì không đăng nhập được.
+ .
+ Bỏ trống trường này nếu bạn không muốn tự động tạo một tài khoản quản trị.
+
+Template: ejabberd/password
+Type: password
+Description: The password for the admin account:
+ Please enter the password for the administrative user.
+Description-cs.UTF-8: Heslo správcovského účtu:
+ Zadejte prosím heslo uživatele se správcovskými oprávněními.
+Description-da.UTF-8: Adgangskoden for administrationskontoen:
+ Indtast venligst adgangskoden for den administrative bruger.
+Description-de.UTF-8: Das Kennwort für das Administratorkonto:
+ Geben Sie das Kennwort für den Administrator an.
+Description-es.UTF-8: La contraseña de la cuenta del administrador:
+ Por favor introduce la contraseña para la cuenta de administrador.
+Description-eu.UTF-8: Pasahitza administrazio konturako:
+ Administratzaile erabiltzailearen pasahitza sartu.
+Description-fi.UTF-8: Ylläpitotunnuksen salasana:
+ Anna salasana ylläpitotunnukselle.
+Description-fr.UTF-8: Mot de passe du compte administrateur :
+ Veuillez entrer le mot de passe de l'utilisateur administrateur.
+Description-gl.UTF-8: O contrasinal para a conta do administrador:
+ Introduza o contrasinal do usuario administrativo.
+Description-ja.UTF-8: 管理者アカウントのパスワード:
+ 管理者権限ユーザのパスワードを入力してください。
+Description-nl.UTF-8: Wachtwoord voor de beheerdersaccount:
+ Voer het wachtwoord in voor de beheerder.
+Description-pt.UTF-8: A palavra chave para a conta de admin:
+ Por favor insira a palavra chave para o utilizador administrativo.
+Description-pt_BR.UTF-8: A senha para a conta administrativa:
+ Por favor, informe a senha para o usuário administrativo.
+Description-ru.UTF-8: Пароль учётной записи администратора:
+ Введите пароль администратора.
+Description-sv.UTF-8: Lösenord för administrationskontot:
+ Ange lösenordet för administratörskontot.
+Description-tr.UTF-8: Yönetici hesabının parolası:
+ Lütfen yönetimsel kullanıcı için bir parola girin.
+Description-vi.UTF-8: Mật khẩu cho tài khoản quản trị:
+ Hãy nhập mật khẩu của người dùng quản trị.
+
+Template: ejabberd/verify
+Type: password
+Description: The password for the admin account again for verification:
+ Please reenter the password for the administrative user for verification.
+Description-cs.UTF-8: Ověření hesla správcovského účtu:
+ Pro ověření prosím zopakujte heslo uživatele se správcovskými oprávněními.
+Description-da.UTF-8: Adgangskoden for administrationskontoen endnu en gang for bekræftelse:
+ Genindtast venligst adgangskoden for den administrative bruger for bekræftelse.
+Description-de.UTF-8: Wiederholen Sie das Passwort zur Vermeidung von Fehleingaben:
+ Bitte geben Sie noch einmal das Passwort ein.
+Description-es.UTF-8: Introduce de nuevo la contraseña para la cuenta de administrador para verificación:
+ Por favor introduce de nuevo la contraseña de la cuenta de administrador para verificación.
+Description-eu.UTF-8: Berriz sartu administrazio kontuko pasahitza, egiaztatzeko:
+ Berriz sartu administratzaile erabiltzailearen pasahitza, egiaztatzeko.
+Description-fi.UTF-8: Ylläpitotunnuksen salasana uudelleen:
+ Anna ylläpitotunnuksen salasana uudelleen varmennuksena.
+Description-fr.UTF-8: Mot de passe du compte administrateur :
+ Veuillez indiquer de nouveau le mot de passe de l'utilisateur administrateur pour vérification.
+Description-gl.UTF-8: O contrasinal do administrador outra vez para verificalo:
+ Volva introducir o contrasinal do usuario administrativo para verificalo.
+Description-ja.UTF-8: 確認のため、管理者アカウントのパスワードの再入力:
+ 管理者権限ユーザのパスワードを確認のため再入力してください。
+Description-nl.UTF-8: Nogmaals het wachtwoord voor de beheerdersaccount ter controle:
+ Voer het wachtwoord voor de beheerder nogmaals in ter controle.
+Description-pt.UTF-8: De novo a palavra chave para a conta de admin para verificação:
+ Por favor re-insira a palavra chave para o utilizador administrativo para verificaçao.
+Description-pt_BR.UTF-8: A senha para a conta administrativa, novamente, para verificação:
+ Por favor, informe novamente a senha do usuário administrativo para verificação.
+Description-ru.UTF-8: Повторный ввод пароля администратора для проверки:
+ Введите пароль администратора ещё раз для проверки.
+Description-sv.UTF-8: Upprepa lösenordet för administratörskontot:
+ För att kontrollera att du angivit rätt lösenord ska du upprepa det här.
+Description-tr.UTF-8: Yönetici hesabının parolası, doğrulama için tekrardan:
+ Lütfen yönetimsel kullanıcının parolasını doğrulama için tekrar girin.
+Description-vi.UTF-8: Nhập lại mật khẩu quản trị, để xác nhận:
+ Hãy nhập lần nữa mật khẩu của người dùng quản trị, để xác nhận đây là mật khẩu đúng.
+
+Template: ejabberd/nomatch
+Type: error
+Description: The passwords do not match!
+ The passwords you have typed do not match. Please try again.
+Description-cs.UTF-8: Hesla nesouhlasí!
+ Zadaná hesla nesouhlasí. Zkuste to prosím znovu.
+Description-da.UTF-8: Adgangskoderne er ikke ens!
+ Adgangskoderne, du har indtastet, er ikke ens. Forsøg venligst igen.
+Description-de.UTF-8: Die Kennwörter waren nicht identisch!
+ Die Kennwörter waren nicht identisch, bitte versuchen Sie es noch einmal.
+Description-es.UTF-8: ¡Las contraseñas no coinciden!
+ Las contraseñas que has tecleado no coinciden. Por favor inténtalo de nuevo.
+Description-eu.UTF-8: Pasahitzak ez datoz bat!
+ Sartutako pasahitzak ez datoz bat. Mesedez, berriro saiatu.
+Description-fi.UTF-8: Salasanat eivät täsmää!
+ Annetut salasanat eivät täsmää. Yritä uudelleen.
+Description-fr.UTF-8: Mots de passe différents
+ Les mots de passe saisis ne correspondent pas. Veuillez recommencer.
+Description-gl.UTF-8: Os contrasinais non coinciden
+ Os contrasinais que introduciu non son iguais. Volva tentalo.
+Description-ja.UTF-8: パスワードが一致しません!
+ 入力されたパスワードが一致しません。再入力してください。
+Description-nl.UTF-8: De wachtwoorden komen niet overeen!
+ De ingevoerde wachtwoorden komen niet overeen. Probeer opnieuw.
+Description-pt.UTF-8: As palavras chave não coincidem!
+ As palavras chave que inseriu não coincidem. Por favor tente de novo.
+Description-pt_BR.UTF-8: As senhas não conferem!
+ As senhas que você digitou não conferem. Por favor, tente novamente.
+Description-ru.UTF-8: Пароли не совпадают!
+ Введённые пароли не совпадают. Попробуйте ещё раз.
+Description-sv.UTF-8: Lösenorden var inte likadana!
+ Lösenorden du angav är inte likadana. Vänligen försök igen.
+Description-tr.UTF-8: Parolalar eşleşmedi!
+ Girdiğiniz parolalar eşleşmedi. Lütfen tekrar deneyin.
+Description-vi.UTF-8: Hai mật khẩu không trùng nhau.
+ Bạn đã gõ hai mật khẩu khác nhau. Hãy thử lại.
+
