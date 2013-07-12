@@ -1,5 +1,5 @@
 Package: ejabberd
-Version: 2.1.12-1
+Version: 2.1.12-2
 Maintainer: Daniel Lin <linonmail@gmail.com>
 Section: universe/net
 Priority: optional
@@ -25,3 +25,4 @@ Description: distributed, fault-tolerant Jabber/XMPP server written in Erlang
   - Shared roster
  Modifications:
   - Fragmented pubsub_item table.
+  - mod_pubsub:get_items() uses node_type:get_item() for single item lookup.

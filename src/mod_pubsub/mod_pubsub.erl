@@ -4,12 +4,12 @@
 %%% compliance with the License. You should have received a copy of the
 %%% Erlang Public License along with this software. If not, it can be
 %%% retrieved via the world wide web at http://www.erlang.org/.
-%%% 
+%%%
 %%% Software distributed under the License is distributed on an "AS IS"
 %%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
 %%% the License for the specific language governing rights and limitations
 %%% under the License.
-%%% 
+%%%
 %%% The Initial Developer of the Original Code is ProcessOne.
 %%% Portions created by ProcessOne are Copyright 2006-2013, ProcessOne
 %%% All Rights Reserved.''
@@ -496,7 +496,7 @@ send_loop(State) ->
 	lists:foreach(fun(PType) ->
 	    {result, Subscriptions} = node_action(Host, PType, get_entity_subscriptions, [Host, JID]),
 	    lists:foreach(
-		fun({Node, subscribed, _, SubJID}) -> 
+		fun({Node, subscribed, _, SubJID}) ->
 		    if (SubJID == LJID) or (SubJID == BJID) ->
 			#pubsub_node{nodeid = {H, N}, type = Type, id = NodeId, options = Options} = Node,
 			case get_option(Options, send_last_published_item) of
@@ -556,22 +556,22 @@ send_loop(State) ->
 			    on_sub_and_presence ->
 				    lists:foreach(
 				      fun(Resource) ->
-			          LJID = {User, Server, Resource},
-			          Subscribed = case get_option(Options, access_model) of
-				          open -> true;
-				          presence -> true;
-				          whitelist -> false; % subscribers are added manually
-				          authorize -> false; % likewise
-				          roster ->
-					          Grps = get_option(Options, roster_groups_allowed, []),
-					          {OU, OS, _} = Owner,
-					          element(2, get_roster_info(OU, OS, LJID, Grps))
-			          end,
-			          if Subscribed ->
-				          send_items(Owner, Node, NodeId, Type, LJID, last);
-				          true ->
-						          ok
-			          end    
+				  LJID = {User, Server, Resource},
+				  Subscribed = case get_option(Options, access_model) of
+					  open -> true;
+					  presence -> true;
+					  whitelist -> false; % subscribers are added manually
+					  authorize -> false; % likewise
+					  roster ->
+						  Grps = get_option(Options, roster_groups_allowed, []),
+						  {OU, OS, _} = Owner,
+						  element(2, get_roster_info(OU, OS, LJID, Grps))
+				  end,
+				  if Subscribed ->
+					  send_items(Owner, Node, NodeId, Type, LJID, last);
+					  true ->
+							  ok
+				  end
 				    end, Resources);
 			    _ ->
 				ok
@@ -1126,10 +1126,10 @@ iq_disco_info(Host, SNode, From, Lang) ->
 	     lists:map(fun(Feature) ->
 		 {xmlelement, "feature", [{"var", ?NS_PUBSUB++"#"++Feature}], []}
 	     end, features(Host, Node))};
-        <<?NS_COMMANDS>> ->
-            command_disco_info(Host, Node, From);
-        <<?NS_PUBSUB_GET_PENDING>> ->
-            command_disco_info(Host, Node, From);
+	<<?NS_COMMANDS>> ->
+	    command_disco_info(Host, Node, From);
+	<<?NS_PUBSUB_GET_PENDING>> ->
+	    command_disco_info(Host, Node, From);
 	_ ->
 	    node_disco_info(Host, Node, From)
     end.
@@ -1405,12 +1405,12 @@ adhoc_request(Host, _ServerHost, Owner,
 	    Error
     end;
 adhoc_request(_Host, _ServerHost, _Owner, #adhoc_request{action = "cancel"},
-              _Access, _Plugins) ->
+	      _Access, _Plugins) ->
     #adhoc_response{status = canceled};
 adhoc_request(Host, ServerHost, Owner, #adhoc_request{action = []} = R,
-              Access, Plugins) ->
+	      Access, Plugins) ->
     adhoc_request(Host, ServerHost, Owner, R#adhoc_request{action = "execute"},
-                  Access, Plugins);
+		  Access, Plugins);
 adhoc_request(_Host, _ServerHost, _Owner, Other, _Access, _Plugins) ->
     ?DEBUG("Couldn't process ad hoc command:~n~p", [Other]),
     {error, ?ERR_ITEM_NOT_FOUND}.
@@ -1946,11 +1946,11 @@ subscribe_node(Host, Node, From, JID, Configuration) ->
 					{"node",Node}];
 				   Other ->
 				       [{"subscription", subscription_to_string(Other)},
-				        {"node", Node}]
+					{"node", Node}]
 			       end,
 		    Fields =
 			[{"jid", jlib:jid_to_string(Subscriber)} | SubAttrs],
-		    [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}], 
+		    [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}],
 			[{xmlelement, "subscription", Fields, []}]}]
 	    end,
     case transaction(Host, Node, Action, sync_dirty) of
@@ -2045,7 +2045,7 @@ publish_item(Host, ServerHost, Node, Publisher, ItemId, Payload) ->
 		    PayloadCount = payload_xmlelements(Payload),
 		    PayloadSize = size(term_to_binary(Payload))-2, % size(term_to_binary([])) == 2
 		    PayloadMaxSize = get_option(Options, max_payload_size),
-		    % pubsub#deliver_payloads true 
+		    % pubsub#deliver_payloads true
 		    % pubsub#persist_items true -> 1 item; false -> 0 item
 		    if
 			not PublishFeature ->
@@ -2071,7 +2071,7 @@ publish_item(Host, ServerHost, Node, Publisher, ItemId, Payload) ->
 		    end
 	    end,
     ejabberd_hooks:run(pubsub_publish_item, ServerHost, [ServerHost, Node, Publisher, service_jid(Host), ItemId, Payload]),
-    Reply = [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}], 
+    Reply = [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}],
 		[{xmlelement, "publish", nodeAttr(Node),
 		    [{xmlelement, "item", itemAttr(ItemId), []}]}]}],
     case transaction(Host, Node, Action, sync_dirty) of
@@ -2268,11 +2268,7 @@ get_items(Host, Node, From, SubId, SMaxItems, ItemIDs) ->
 		    Val -> Val
 		end
 	end,
-    case MaxItems of
-	{error, Error} ->
-	    {error, Error};
-	_ ->
-	    Action = fun(#pubsub_node{options = Options, type = Type, id = NodeId, owners = Owners}) ->
+    Action = fun(#pubsub_node{options = Options, type = Type, id = NodeId, owners = Owners}) ->
 		     Features = features(Type),
 		     RetreiveFeature = lists:member("retrieve-items", Features),
 		     PersistentFeature = lists:member("persistent-items", Features),
@@ -2287,28 +2283,59 @@ get_items(Host, Node, From, SubId, SMaxItems, ItemIDs) ->
 			     %% Persistent Items Not Supported
 			     {error, extended_error(?ERR_FEATURE_NOT_IMPLEMENTED, unsupported, "persistent-items")};
 			 true ->
-			     node_call(Type, get_items,
-				       [NodeId, From,
-					AccessModel, PresenceSubscription, RosterGroup,
-					SubId])
+			     %% Do not load all items if request is for one specific item.
+			     %% WARNING for requsts of more than one item will load all items
+			     %% into memory.
+			     case ItemIDs of
+				 [ItemId] ->
+				     ?DEBUG("Searching for a single item: ~p.~n", [ItemId]),
+				     node_call(Type, get_item, [NodeId, ItemId]);
+				 _ ->
+				     ?DEBUG("Loading all items on node: ~p.~n", [NodeId]),
+				     node_call(Type, get_items,
+					       [NodeId, From,
+						AccessModel, PresenceSubscription, RosterGroup,
+						SubId])
+			     end
 		     end
 	     end,
-	     case transaction(Host, Node, Action, sync_dirty) of
-		{result, {_, Items}} ->
+    case MaxItems of
+	{error, Error} ->
+	    {error, Error};
+	_ ->
+	    case transaction(Host, Node, Action, sync_dirty) of
+		{result, {_, Items}} when is_list(Items)->
+		    ?DEBUG("Returning all items on node: ~p.~n", [Node]),
 		    SendItems = case ItemIDs of
-			[] -> 
-			    Items;
-			_ ->
-			    lists:filter(fun(#pubsub_item{itemid = {ItemId, _}}) ->
-				lists:member(ItemId, ItemIDs)
-			    end, Items) 
-			end,
+				    [] ->
+					Items;
+				    _ ->
+					lists:filter(fun(#pubsub_item{itemid = {ItemId, _}}) ->
+							     lists:member(ItemId, ItemIDs)
+						     end, Items)
+				end,
 		    %% Generate the XML response (Item list), limiting the
 		    %% number of items sent to MaxItems:
 		    {result, [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}],
-				[{xmlelement, "items", nodeAttr(Node),
-				  itemsEls(lists:sublist(SendItems, MaxItems))}]}]};
+			       [{xmlelement, "items", nodeAttr(Node),
+				 itemsEls(lists:sublist(SendItems, MaxItems))}]}]};
+		{result, {_, Item}} ->
+		    %% This is the case where Action used get_item() which only
+		    %% returns a single item.
+		    ?DEBUG("Returning single item: ~p.~n", [Item]),
+		    {result, [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}],
+			       [{xmlelement, "items", nodeAttr(Node),
+				 itemsEls([Item])}]}]};
+		{error, ?ERR_ITEM_NOT_FOUND} ->
+		    %% When a single item is being fetched and it doesn't exist, we don't
+		    %% want to error; return a empty list instead. This is used for
+		    %% PBW background image searches.
+		    ?DEBUG("Single item lookup - item not found. Returning empty list.~n", []),
+		    {result, [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}],
+			       [{xmlelement, "items", nodeAttr(Node), []}]
+			      }]};
 		Error ->
+		    ?DEBUG("get_items returned error: ~p.~n", [Error]),
 		    Error
 	    end
     end.
@@ -2354,23 +2381,23 @@ send_items(Host, Node, NodeId, Type, {U,S,R} = LJID, last) ->
 		[{xmlelement, "items", nodeAttr(Node),
 		  itemsEls([LastItem])}], ModifNow, ModifUSR),
 	    case is_tuple(Host) of
-	        false ->
-	            ejabberd_router:route(service_jid(Host), jlib:make_jid(LJID), Stanza);
-	        true ->
-	            case ejabberd_sm:get_session_pid(U,S,R) of
-	                C2SPid when is_pid(C2SPid) ->
-	                    ejabberd_c2s:broadcast(C2SPid,
-	                        {pep_message, binary_to_list(Node)++"+notify"},
-	                        _Sender = service_jid(Host),
-	                        Stanza);
-	                _ ->
-	                    ok
-	            end
+		false ->
+		    ejabberd_router:route(service_jid(Host), jlib:make_jid(LJID), Stanza);
+		true ->
+		    case ejabberd_sm:get_session_pid(U,S,R) of
+			C2SPid when is_pid(C2SPid) ->
+			    ejabberd_c2s:broadcast(C2SPid,
+				{pep_message, binary_to_list(Node)++"+notify"},
+				_Sender = service_jid(Host),
+				Stanza);
+			_ ->
+			    ok
+		    end
 	    end
     end;
 send_items(Host, Node, NodeId, Type, {U,S,R} = LJID, Number) ->
     ToSend = case node_action(Host, Type, get_items, [NodeId, LJID]) of
-	{result, []} -> 
+	{result, []} ->
 	    [];
 	{result, Items} ->
 	    case Number of
@@ -2392,18 +2419,18 @@ send_items(Host, Node, NodeId, Type, {U,S,R} = LJID, Number) ->
 		  itemsEls(ToSend)}])
     end,
     case is_tuple(Host) of
-        false ->
-            ejabberd_router:route(service_jid(Host), jlib:make_jid(LJID), Stanza);
-        true ->
-            case ejabberd_sm:get_session_pid(U,S,R) of
-	                C2SPid when is_pid(C2SPid) ->
-	                    ejabberd_c2s:broadcast(C2SPid,
-	                        {pep_message, binary_to_list(Node)++"+notify"},
-	                        _Sender = service_jid(Host),
-	                        Stanza);
-	                _ ->
-	                    ok
-	            end
+	false ->
+	    ejabberd_router:route(service_jid(Host), jlib:make_jid(LJID), Stanza);
+	true ->
+	    case ejabberd_sm:get_session_pid(U,S,R) of
+			C2SPid when is_pid(C2SPid) ->
+			    ejabberd_c2s:broadcast(C2SPid,
+				{pep_message, binary_to_list(Node)++"+notify"},
+				_Sender = service_jid(Host),
+				Stanza);
+			_ ->
+			    ok
+		    end
     end.
 
 %% @spec (Host, JID, Plugins) -> {error, Reason} | {result, Response}
@@ -2628,8 +2655,8 @@ read_sub(Subscriber, Node, NodeID, SubID, Lang) ->
 	    OptionsEl = {xmlelement, "options", [{"jid", jlib:jid_to_string(Subscriber)},
 						 {"subid", SubID}|nodeAttr(Node)],
 			 [XdataEl]},
-            PubsubEl = {xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}], [OptionsEl]},
-            {result, PubsubEl}
+	    PubsubEl = {xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}], [OptionsEl]},
+	    {result, PubsubEl}
     end.
 
 set_options(Host, Node, JID, SubID, Configuration) ->
@@ -2842,7 +2869,7 @@ set_subscriptions(Host, Node, From, EntitiesEls) ->
 		Stanza = {xmlelement, "message", [],
 			    [{xmlelement, "pubsub", [{"xmlns", ?NS_PUBSUB}],
 				[{xmlelement, "subscription",
-				    [{"jid", jlib:jid_to_string(JID)}, 
+				    [{"jid", jlib:jid_to_string(JID)},
 				    %{"subid", SubId},
 				     {"subscription", subscription_to_string(Sub)} | nodeAttr(Node)], []}]}]},
 		ejabberd_router:route(service_jid(Host), jlib:make_jid(JID), Stanza)
@@ -2955,8 +2982,8 @@ string_to_node(SNode) -> list_to_binary(SNode).
 %%	Host = host()
 %% @doc <p>Generate pubsub service JID.</p>
 service_jid(Host) ->
-    case Host of 
-    {U,S,_} -> {jid, U, S, "", U, S, ""}; 
+    case Host of
+    {U,S,_} -> {jid, U, S, "", U, S, ""};
     _ -> {jid, "", Host, "", "", Host, ""}
     end.
 
@@ -3023,9 +3050,9 @@ state_can_deliver({U, S, R}, SubOptions) ->
       %% For each resource, test if the item is allowed to be delivered
       %% based on resource state
       lists:foldl(
-        fun(Resource, Acc) ->
-          get_resource_state({U, S, Resource}, ShowValues, Acc)
-        end, [], Resources)
+	fun(Resource, Acc) ->
+	  get_resource_state({U, S, Resource}, ShowValues, Acc)
+	end, [], Resources)
     end.
 
 get_resource_state({U, S, R}, ShowValues, JIDs) ->
@@ -3141,7 +3168,7 @@ broadcast_purge_node(Host, Node, NodeId, Type, NodeOptions) ->
 		    broadcast_stanza(Host, Node, NodeId, Type,
 				     NodeOptions, SubsByDepth, nodes, Stanza, false),
 		    {result, true};
-		_ -> 
+		_ ->
 		    {result, false}
 	    end;
 	_ ->
@@ -3244,16 +3271,16 @@ broadcast_stanza(Host, _Node, _NodeId, _Type, NodeOptions, SubsByDepth, NotifyTy
 				      false ->
 					  [LJID]
 				  end,
-        %% Determine if the stanza should have SHIM ('SubID' and 'name') headers
+	%% Determine if the stanza should have SHIM ('SubID' and 'name') headers
 	      StanzaToSend = case {SHIM, SubIDs} of
-				                 {false, _} ->
-				                   Stanza;
-				                 %% If there's only one SubID, don't add it
-				                 {true, [_]} ->
-				                   add_shim_headers(Stanza, collection_shim(NodeName));
-				                 {true, SubIDs} ->
-				                   add_shim_headers(Stanza, lists:append(collection_shim(NodeName), subid_shim(SubIDs)))
-		                   end,
+						 {false, _} ->
+						   Stanza;
+						 %% If there's only one SubID, don't add it
+						 {true, [_]} ->
+						   add_shim_headers(Stanza, collection_shim(NodeName));
+						 {true, SubIDs} ->
+						   add_shim_headers(Stanza, lists:append(collection_shim(NodeName), subid_shim(SubIDs)))
+				   end,
 			  lists:foreach(fun(To) ->
 					ejabberd_router:route(From, jlib:make_jid(To), StanzaToSend)
 				end, LJIDs)
@@ -3263,7 +3290,7 @@ broadcast_stanza({LUser, LServer, LResource}, Publisher, Node, NodeId, Type, Nod
     broadcast_stanza({LUser, LServer, LResource}, Node, NodeId, Type, NodeOptions, SubsByDepth, NotifyType, BaseStanza, SHIM),
     %% Handles implicit presence subscriptions
     SenderResource = case LResource of
-	[] -> 
+	[] ->
 	    case user_resources(LUser, LServer) of
 		[Resource|_] -> Resource;
 		_ -> ""
@@ -3281,10 +3308,10 @@ broadcast_stanza({LUser, LServer, LResource}, Publisher, Node, NodeId, Type, Nod
 	    %% Also, add "replyto" if entity has presence subscription to the account owner
 	    %% See XEP-0163 1.1 section 4.3.1
 	    ejabberd_c2s:broadcast(C2SPid,
-	        {pep_message, binary_to_list(Node)++"+notify"},
-	        _Sender = jlib:make_jid(LUser, LServer, ""),
-	        _StanzaToSend = add_extended_headers(Stanza,
-	            _ReplyTo = extended_headers([jlib:jid_to_string(Publisher)])));
+		{pep_message, binary_to_list(Node)++"+notify"},
+		_Sender = jlib:make_jid(LUser, LServer, ""),
+		_StanzaToSend = add_extended_headers(Stanza,
+		    _ReplyTo = extended_headers([jlib:jid_to_string(Publisher)])));
 	_ ->
 	    ?DEBUG("~p@~p has no session; can't deliver ~p to contacts", [LUser, LServer, BaseStanza])
     end;
@@ -3712,12 +3739,12 @@ plugins(Host) ->
     end.
 select_type(ServerHost, Host, Node, Type)->
     SelectedType = case Host of
-    {_User, _Server, _Resource} -> 
+    {_User, _Server, _Resource} ->
 	case catch ets:lookup(gen_mod:get_module_proc(ServerHost, config), pep_mapping) of
 	[{pep_mapping, PM}] -> proplists:get_value(node_to_string(Node), PM, ?PEPNODE);
 	_ -> ?PEPNODE
 	end;
-    _ -> 
+    _ ->
 	Type
     end,
     ConfiguredTypes = plugins(ServerHost),
@@ -3725,7 +3752,7 @@ select_type(ServerHost, Host, Node, Type)->
     true -> SelectedType;
     false -> hd(ConfiguredTypes)
     end.
-select_type(ServerHost, Host, Node) -> 
+select_type(ServerHost, Host, Node) ->
     select_type(ServerHost, Host, Node, hd(plugins(ServerHost))).
 
 features() ->

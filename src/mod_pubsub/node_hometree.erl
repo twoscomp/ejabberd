@@ -960,7 +960,7 @@ get_items(NodeIdx, JID, AccessModel, PresenceSubscription, RosterGroup, _SubId) 
 %%	 Item    = mod_pubsub:pubsubItem()
 %% @doc <p>Returns an item (one item list), given its reference.</p>
 get_item(NodeIdx, ItemId) ->
-    ReadFun = mnesia:read({pubsub_item, {ItemId, NodeIdx}}),
+    ReadFun = fun() -> mnesia:read({pubsub_item, {ItemId, NodeIdx}}) end,
     Result = mnesia:activity(sync_dirty, ReadFun, [], mnesia_frag),
     case Result of
 	[Item] when is_record(Item, pubsub_item) ->
